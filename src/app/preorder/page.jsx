@@ -4,14 +4,67 @@ import { useEffect, useState } from 'react';
 
 export default function PreorderPage() {
 
+    const [preorders, setPreorders] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
   const [ order_date, SetOrderDate ] = useState('');
   const [ order_by, SetOrderBy ] = useState('');
   const [ selected_package, setSelectedPackage ]= useState('');
   const [ qty, setQty ] = useState('');
   const [ status, setStatus ] = useState('');
+  const [editId, setEditId] = useState(null);
   const [ msg, setMsg ] = useState('');
 
+  const fetchPreorders = async () => {
+    const res = await fetch('/api/preorder');
+    const data = await res.json();
+    setPreorders(data);
+  }
+  useEffect(() => {
+    fetchPreorders();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const method = editId ? 'PUT' : 'POST';
+    const res = await fetch('/api/preorder', {
+        method,
+        headers: {'Content-Type' : "application/json"},
+        body: JSON.stringify({id: editId, order_date, order_by, selected_package, qty, status}),
+    });
+    if (res.ok){
+        setMsg('Berhasil disimpan');
+        SetOrderDate('');
+        SetOrderBy('');
+        setSelectedPackage('');
+        setQty('');
+        setStatus('');
+        setEditId(null);
+        setFormVisible(false);
+        fetchPreorders();
+    }else {
+        setMsg('Gagal menyimpan data');
+    }
+  };
+
+  const handleEdit = (item) => {
+    SetOrderDate(item.order_date);
+    SetOrderBy(item.order_by);
+    setSelectedPackage(item.selected_package);
+    setQty(item.qty);
+    setStatus(item.status);
+    setEditId(null);
+    setFormVisible(true);
+  }
+  const handleDelete = async (id) => {
+    if(!confirm('Yakin hapus data ini?')) return;
+
+    await fetch('/api/preorder', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id}),
+    })
+    fetchPreorders;
+  };
   return (
     <div className={styles.container}>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
@@ -24,13 +77,13 @@ export default function PreorderPage() {
         {formVisible && (
             <div className={styles.formWrapper}>
                 <h3>Input Data Baru</h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <span>Tanggal Pesanan</span>
                     <input
                     type="date"
                     value={order_date}
-                    onChange={(e) => setOrderDate(e.target.value)}
+                    onChange={(e) => SetOrderDate(e.target.value)}
                     required
                     />
                 </div>
@@ -39,7 +92,7 @@ export default function PreorderPage() {
                     <input
                     type="text"
                     value={order_by}
-                    onChange={(e) => setOrderBy(e.target.value)}
+                    onChange={(e) => SetOrderBy(e.target.value)}
                     placeholder="Masukkan Nama Pemesan"
                     required
                     />
@@ -111,6 +164,27 @@ export default function PreorderPage() {
                     <th>Aksi</th>
                 </tr>
                 </thead>
+                <tbody>
+                    {preorders.map((item, index) => {
+                        <tr key={item.id}>
+                            <td>{index + 1}</td>
+                            <td>{item.order_date}</td>
+                            <td>{item.order_by}</td>
+                            <td>{item.selected_package}</td>
+                            <td>{item.qty}</td>
+                            <td>{item.status}</td>
+                            <td>
+                            <button onClick={() => handleEdit(item)}>Edit</button>
+                            <button onClick={() => handleDelete(item.id)}>Edit</button>
+                            </td>
+                        </tr>
+                    })}
+                    {preorders.length === 0 && (
+                        <tr>
+                            <td colSpan="8">Belum Ada Data</td>
+                        </tr>
+                    )}
+                </tbody>
             </table>    
         </div>
     </div>
