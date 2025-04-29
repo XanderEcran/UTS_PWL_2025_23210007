@@ -11,7 +11,7 @@ export async function GET() {
 export async function POST(request) {
     const {order_date, order_by, selected_package, qty, is_paid} = await request.json();
 
-    if (!order_date || !order_by || !selected_package || !qty || !is_paid){
+    if (!order_date || !order_by || !selected_package || !qty || typeof is_paid !== 'boolean'){
         return new Response(JSON.stringify({error: 'Semua field wajib diisi'}), {
             status: 400,
         });
@@ -24,7 +24,7 @@ export async function POST(request) {
 
 export async function PUT(request) {
     const {id, order_date, order_by, selected_package, qty, is_paid} = await request.json();
-    if(!id || !order_date || !order_by || !selected_package || !qty || !is_paid) return Response.json({error : 'Field Kosong'}, {
+    if(!id || !order_date || !order_by || !selected_package || !qty || typeof is_paid !== 'boolean') return Response.json({error : 'Field Kosong'}, {
         status: 400});
 
     const prodi = await prisma.preorder.update({

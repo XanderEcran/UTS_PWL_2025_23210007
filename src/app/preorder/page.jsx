@@ -25,12 +25,44 @@ export default function PreorderPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!order_date || !order_by || !selected_package || !qty || !status) {
+        setMsg('Semua field wajib diisi');
+        return;
+    }
+
+    const formattedOrderDate = new Date(order_date).toISOString()
+    if (isNaN(Date.parse(formattedOrderDate))) {
+        setMsg('Tanggal pesanan tidak valid');
+        console.log('Formatted Order Date:', formattedOrderDate);
+        return;
+    }
+
+    const parsedQty = Number(qty);
+    if (isNaN(parsedQty) || parsedQty <= 0) {
+        setMsg('Jumlah harus berupa angka yang valid');
+        return;
+    }
+
+    const isPaid = status === "Lunas";
+
+    const data = {
+        id: editId,
+        order_date: formattedOrderDate,
+        order_by,
+        selected_package,
+        qty: parsedQty,
+        is_paid: isPaid,
+    };
+
     const method = editId ? 'PUT' : 'POST';
     const res = await fetch('/api/preorder', {
         method,
-        headers: {'Content-Type' : "application/json"},
-        body: JSON.stringify({id: editId, order_date, order_by, selected_package, qty, status}),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        
     });
+    console.log("Status yang dikirim:", status);
+
     if (res.ok){
         setMsg('Berhasil disimpan');
         SetOrderDate('');
@@ -42,7 +74,8 @@ export default function PreorderPage() {
         setFormVisible(false);
         fetchPreorders();
     }else {
-        setMsg('Gagal menyimpan data');
+        const errorData = await res.json();
+        setMsg(errorData.error || 'Gagal menyimpan data');
     }
   };
 
@@ -165,23 +198,23 @@ export default function PreorderPage() {
                 </tr>
                 </thead>
                 <tbody>
-                    {preorders.map((item, index) => {
+                    {preorders.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1}</td>
-                            <td>{item.order_date}</td>
+                            <td>{new Date(item.order_date).toISOString().split('T')[0]}</td>
                             <td>{item.order_by}</td>
                             <td>{item.selected_package}</td>
                             <td>{item.qty}</td>
-                            <td>{item.status}</td>
+                            <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>
                             <td>
                             <button onClick={() => handleEdit(item)}>Edit</button>
-                            <button onClick={() => handleDelete(item.id)}>Edit</button>
+                            <button onClick={() => handleDelete(item.id)}>Delete</button>
                             </td>
                         </tr>
-                    })}
+                    ))}
                     {preorders.length === 0 && (
                         <tr>
-                            <td colSpan="8">Belum Ada Data</td>
+                            <td colSpan="7">Belum Ada Data</td>
                         </tr>
                     )}
                 </tbody>
