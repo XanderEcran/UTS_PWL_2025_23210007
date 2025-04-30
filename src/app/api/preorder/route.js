@@ -16,10 +16,12 @@ export async function POST(request) {
             status: 400,
         });
     }
+    
     const preorder = await prisma.preorder.create({
         data : {order_date, order_by, selected_package, qty, is_paid},
     });
     return new Response(JSON.stringify(preorder), {status: 201});
+    
 }
 
 export async function PUT(request) {
