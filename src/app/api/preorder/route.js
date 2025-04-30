@@ -27,16 +27,18 @@ export async function PUT(request) {
     if(!id || !order_date || !order_by || !selected_package || !qty || typeof is_paid !== 'boolean') return Response.json({error : 'Field Kosong'}, {
         status: 400});
 
-    const prodi = await prisma.preorder.update({
+    const preorder = await prisma.preorder.update({
         where: {id},
         data: {order_date, order_by, selected_package, qty, is_paid},
     });
-    return Response.json(matkul);
+    return Response.json(preorder);
 }
 
 export async function DELETE(request) {
     const {id} = await request.json();
-    if(!id) return Response.json({message: 'Berhasil dihapus'});
+    if(!id) return Response.json({error: 'ID tidak ditemukan'}, {status : 400});
+
+    await prisma.preorder.delete({})
 }
 
 // id  Int @id @default(autoincrement())

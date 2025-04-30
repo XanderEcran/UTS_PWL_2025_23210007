@@ -80,14 +80,15 @@ export default function PreorderPage() {
   };
 
   const handleEdit = (item) => {
-    SetOrderDate(item.order_date);
+    SetOrderDate(item.order_date.split('T')[0]);
     SetOrderBy(item.order_by);
     setSelectedPackage(item.selected_package);
     setQty(item.qty);
-    setStatus(item.status);
-    setEditId(null);
+    setStatus(item.is_paid ? "Lunas" : "Belum Lunas");
+    setEditId(item.id);
     setFormVisible(true);
   }
+
   const handleDelete = async (id) => {
     if(!confirm('Yakin hapus data ini?')) return;
 
