@@ -61,7 +61,6 @@ export default function PreorderPage() {
         body: JSON.stringify(data),
         
     });
-    console.log("Status yang dikirim:", status);
 
     if (res.ok){
         setMsg('Berhasil disimpan');
@@ -97,7 +96,7 @@ export default function PreorderPage() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id}),
     })
-    fetchPreorders;
+    fetchPreorders();
   };
   return (
     <div className={styles.container}>
@@ -209,7 +208,7 @@ export default function PreorderPage() {
                             <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>
                             <td>
                             <button onClick={() => handleEdit(item)}>Edit</button>
-                            <button onClick={() => handleDelete(item.id)}>Delete</button>
+                            <button onClick={() => handleDelete(item.id)}>Hapus</button>
                             </td>
                         </tr>
                     ))}

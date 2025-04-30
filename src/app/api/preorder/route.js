@@ -38,7 +38,8 @@ export async function DELETE(request) {
     const {id} = await request.json();
     if(!id) return Response.json({error: 'ID tidak ditemukan'}, {status : 400});
 
-    await prisma.preorder.delete({})
+    await prisma.preorder.delete({where : {id}});
+    return Response.json({message: 'Berhasil dihapus'});
 }
 
 // id  Int @id @default(autoincrement())
