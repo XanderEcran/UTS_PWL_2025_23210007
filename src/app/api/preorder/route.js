@@ -43,10 +43,3 @@ export async function DELETE(request) {
     await prisma.preorder.delete({where : {id}});
     return Response.json({message: 'Berhasil dihapus'});
 }
-
-// id  Int @id @default(autoincrement())
-//   order_date  DateTime
-//   order_by  String
-//   selected_package  String
-//   qty Int
-//   is_paid Boolean
