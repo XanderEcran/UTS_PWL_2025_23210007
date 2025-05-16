@@ -52,6 +52,17 @@ export default function PaketPage() {
         setFormVisible(true);
     };
 
+    const handleDelete = async (id) => {
+        if(!confirm('Yakin hapus data ini?')) return;
+
+        await fetch('api/paket', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id}),
+        });
+        fetchPakets();
+    };
+
     return (
         <div>
             <h1>Tabel Paket Ayam Penyet Koh Alex</h1>
@@ -114,7 +125,7 @@ export default function PaketPage() {
                             <td>{item.deskripsi}</td>
                             <td>
                                 <button onClick={() => handleEdit(item)}>Edit</button>
-                                <button>Hapus</button>
+                                <button onClick={() => handleDelete(item.id)}>Hapus</button>
                             </td>
                         </tr>
                     ))}
