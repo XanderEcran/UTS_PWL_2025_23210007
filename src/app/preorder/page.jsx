@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 
 export default function PreorderPage() {
 
-    const [preorders, setPreorders] = useState([]);
+  const [preorders, setPreorders] = useState([]);
+  const [pakets, setPakets] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
   const [ order_date, SetOrderDate ] = useState('');
   const [ order_by, SetOrderBy ] = useState('');
@@ -14,13 +15,22 @@ export default function PreorderPage() {
   const [editId, setEditId] = useState(null);
   const [ msg, setMsg ] = useState('');
 
+  
+  
   const fetchPreorders = async () => {
     const res = await fetch('/api/preorder');
     const data = await res.json();
     setPreorders(data);
   }
+
+  const fetchPakets = async () => {
+    const res = await fetch('api/paket');
+    const data = await res.json();
+    setPakets(data);
+  }
   useEffect(() => {
     fetchPreorders();
+    fetchPakets()
   }, []);
 
   const handleSubmit = async (e) => {
@@ -138,11 +148,9 @@ export default function PreorderPage() {
                         required
                     >
                         <option value="">Pilih Paket</option>
-                        <option value="Paket 1">Paket 1</option>
-                        <option value="Paket 2">Paket 2</option>
-                        <option value="Paket 3">Paket 3</option>
-                        <option value="Paket 4">Paket 4</option>
-                        <option value="Paket 5">Paket 5</option>
+                        {pakets.map((item, index) => (
+                            <option value={item.id}>{item.nama}</option>
+                        ))}
                     </select>
                 </div>
                 <div className={styles.formGroup}>
