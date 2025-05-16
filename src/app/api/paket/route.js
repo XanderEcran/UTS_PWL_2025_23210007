@@ -20,3 +20,17 @@ export async function POST(request){
     });
     return new Response(JSON.stringify(paket), {status: 201});
 }
+
+export async function PUT(request) {
+    const {id, kode, nama, deskripsi} = await request.json();
+
+    if(!id || !kode || !nama || !deskripsi) return Response.json({error: 'Field kosong'}, {
+        status:400});
+
+    const paket = await prisma.paket.update({
+        where: {id},
+        data: {kode, nama, deskripsi},
+    });
+
+    return Response.json(paket);
+}

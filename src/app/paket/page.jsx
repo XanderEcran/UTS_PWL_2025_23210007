@@ -9,6 +9,7 @@ export default function PaketPage() {
     const [deskripsi, setDeskripsi] = useState('');
     const [msg, setMsg] = useState('');
     const [formVisible, setFormVisible] = useState(false);
+    const [editId, setEditId] = useState(null);
 
 
     const fetchPakets = async () =>{
@@ -23,10 +24,11 @@ export default function PaketPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const method = editId ? 'PUT' : 'POST';
         const res = await fetch('api/paket', {
-            method : 'POST',
+            method,
             headers : {'Content-Type': 'application/json'},
-            body: JSON.stringify({kode, nama, deskripsi}),
+            body: JSON.stringify({id:editId, kode, nama, deskripsi}),
         });
 
         if (res.ok) {
@@ -34,12 +36,21 @@ export default function PaketPage() {
             setKode('');
             setNama('');
             setDeskripsi('');
+            setEditId(null)
             setFormVisible(false);
             fetchPakets();
         } else {
             setMsg('Gagal menyimpan data');
         }
     }
+
+    const handleEdit = (item) => {
+        setKode(item.kode);
+        setNama(item.nama);
+        setDeskripsi(item.deskripsi);
+        setEditId(item.id);
+        setFormVisible(true);
+    };
 
     return (
         <div>
@@ -102,7 +113,7 @@ export default function PaketPage() {
                             <td>{item.nama}</td>
                             <td>{item.deskripsi}</td>
                             <td>
-                                <button>Edit</button>
+                                <button onClick={() => handleEdit(item)}>Edit</button>
                                 <button>Hapus</button>
                             </td>
                         </tr>
