@@ -149,7 +149,7 @@ export default function PreorderPage() {
                     >
                         <option value="">Pilih Paket</option>
                         {pakets.map((item, index) => (
-                            <option value={item.id}>{item.nama}</option>
+                            <option key={item.id} value={item.nama}>{item.nama}</option>
                         ))}
                     </select>
                 </div>
