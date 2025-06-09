@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET() {
     const data = await prisma.preorder.findMany({
+        include: {paket: true},
         orderBy: {id: 'asc'}
     });
 
@@ -18,7 +19,7 @@ export async function POST(request) {
     }
     
     const preorder = await prisma.preorder.create({
-        data : {order_date, order_by, selected_package, qty, is_paid},
+        data : {order_date, order_by, selected_package: Number(selected_package), qty, is_paid},
     });
     return new Response(JSON.stringify(preorder), {status: 201});
     
@@ -31,7 +32,7 @@ export async function PUT(request) {
 
     const preorder = await prisma.preorder.update({
         where: {id},
-        data: {order_date, order_by, selected_package, qty, is_paid},
+        data: {order_date, order_by, selected_package: Number(selected_package), qty, is_paid},
     });
     return Response.json(preorder);
 }

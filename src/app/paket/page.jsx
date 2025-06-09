@@ -68,7 +68,7 @@ export default function PaketPage() {
             <h1>Tabel Paket Ayam Penyet Koh Alex</h1>
             <button
                     onClick={() => setFormVisible(!formVisible)}>
-                        {formVisible ? 'Tutup Form' : 'Tambah Matkul'}
+                        {formVisible ? 'Tutup Form' : 'Tambah Paket'}
                 </button>
                 {formVisible && (
                     <form onSubmit={handleSubmit}>

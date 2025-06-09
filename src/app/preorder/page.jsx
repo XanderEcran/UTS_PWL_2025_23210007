@@ -83,8 +83,7 @@ export default function PreorderPage() {
         setFormVisible(false);
         fetchPreorders();
     }else {
-        const errorData = await res.json();
-        setMsg(errorData.error || 'Gagal menyimpan data');
+        setMsg('Gagal menyimpan data');
     }
   };
 
@@ -148,8 +147,8 @@ export default function PreorderPage() {
                         required
                     >
                         <option value="">Pilih Paket</option>
-                        {pakets.map((item, index) => (
-                            <option key={item.id} value={item.nama}>{item.nama}</option>
+                        {pakets.map((paket) => (
+                            <option key={paket.id} value={paket.id}>{paket.nama}</option>
                         ))}
                     </select>
                 </div>
@@ -211,7 +210,7 @@ export default function PreorderPage() {
                             <td>{index + 1}</td>
                             <td>{new Date(item.order_date).toISOString().split('T')[0]}</td>
                             <td>{item.order_by}</td>
-                            <td>{item.selected_package}</td>
+                            <td>{item.paket?.nama || "Unknown"}</td>
                             <td>{item.qty}</td>
                             <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>
                             <td>

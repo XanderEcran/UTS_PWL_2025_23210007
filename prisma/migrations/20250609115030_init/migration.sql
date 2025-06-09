@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "customer" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "kode" TEXT NOT NULL,
+    "nama" TEXT NOT NULL,
+    "deskripsi" TEXT NOT NULL,
+    "createAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
