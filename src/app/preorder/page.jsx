@@ -6,6 +6,7 @@ export default function PreorderPage() {
 
   const [preorders, setPreorders] = useState([]);
   const [pakets, setPakets] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
   const [ order_date, SetOrderDate ] = useState('');
   const [ order_by, SetOrderBy ] = useState('');
@@ -28,9 +29,17 @@ export default function PreorderPage() {
     const data = await res.json();
     setPakets(data);
   }
+
+  const fetchCustomers = async () => {
+    const res = await fetch('api/customer');
+    const data = await res.json();
+    setCustomers(data);
+  }
+
   useEffect(() => {
     fetchPreorders();
-    fetchPakets()
+    fetchPakets();
+    fetchCustomers();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -110,6 +119,10 @@ export default function PreorderPage() {
   return (
     <div className={styles.container}>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
+        <button><a href="http://localhost:3000/paket">Menuju ke Paket</a></button>
+        <button><a href="http://localhost:3000/customer">Menuju ke Pelanggan</a></button>
+        <br/>
+        <br/>
         <button
             className={styles.buttonToggle}
             onClick={() => setFormVisible(!formVisible)}>
@@ -131,13 +144,16 @@ export default function PreorderPage() {
                 </div>
                 <div className={styles.formGroup}>
                     <span>Nama Pemesan</span>
-                    <input
-                    type="text"
+                    <select
                     value={order_by}
                     onChange={(e) => SetOrderBy(e.target.value)}
-                    placeholder="Masukkan Nama Pemesan"
                     required
-                    />
+                    >
+                        <option value="">Pilih Pelanggan</option>
+                        {customers.map((customer) => (
+                            <option key={customer.id} value={customer.id}>{customer.nama}</option>
+                        ))}
+                    </select>
                 </div>
                 <div className={styles.formGroup}>
                     <span>Paket</span>
@@ -209,7 +225,7 @@ export default function PreorderPage() {
                         <tr key={item.id}>
                             <td>{index + 1}</td>
                             <td>{new Date(item.order_date).toISOString().split('T')[0]}</td>
-                            <td>{item.order_by}</td>
+                            <td>{item.customer?.nama || "Unknown"}</td>
                             <td>{item.paket?.nama || "Unknown"}</td>
                             <td>{item.qty}</td>
                             <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>

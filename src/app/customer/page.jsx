@@ -66,6 +66,10 @@ export default function PaketPage() {
     return (
         <div>
             <h1>Tabel Pelanggan Ayam Penyet Koh Alex</h1>
+            <button><a href="http://localhost:3000/preorder">Menuju ke Orderan</a></button>
+            <button><a href="http://localhost:3000/paket">Menuju ke Paket</a></button>
+            <br/>
+            <br/>
             <button
                     onClick={() => setFormVisible(!formVisible)}>
                         {formVisible ? 'Tutup Form' : 'Tambah Pelanggan'}
@@ -95,7 +99,7 @@ export default function PaketPage() {
                                 type="text"
                                 value={deskripsi}
                                 onChange={(e) => setDeskripsi(e.target.value)}
-                                placeholder="Masukkan Pilihan Pelanggan"
+                                placeholder="Masukkan Deskripsi Pelanggan"
                                 required
                             />
                         </div>
@@ -108,7 +112,7 @@ export default function PaketPage() {
             <table border="1">
                 
                 <thead>
-                    <tr>
+                    <tr> 
                         <th>No</th>
                         <th>Kode</th>
                         <th>Nama</th>
@@ -117,7 +121,7 @@ export default function PaketPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {pakets.map ((item, index) => (
+                    {customers.map ((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1}</td>
                             <td>{item.kode}</td>
@@ -129,7 +133,7 @@ export default function PaketPage() {
                             </td>
                         </tr>
                     ))}
-                    {pakets.length === 0 && (
+                    {customers.length === 0 && (
                         <tr>
                             <td colSpan="5">Belum ada Data</td>
                         </tr>

@@ -66,6 +66,10 @@ export default function PaketPage() {
     return (
         <div>
             <h1>Tabel Paket Ayam Penyet Koh Alex</h1>
+            <button><a href="http://localhost:3000/preorder">Menuju ke Orderan</a></button>
+            <button><a href="http://localhost:3000/customer">Menuju ke Pelanggan</a></button>
+            <br/>
+            <br/>
             <button
                     onClick={() => setFormVisible(!formVisible)}>
                         {formVisible ? 'Tutup Form' : 'Tambah Paket'}

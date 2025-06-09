@@ -1078,6 +1078,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CustomerCountOutputType
+   */
+
+  export type CustomerCountOutputType = {
+    preorders: number
+  }
+
+  export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    preorders?: boolean | CustomerCountOutputTypeCountPreordersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerCountOutputType
+     */
+    select?: CustomerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountPreordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: preorderWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1095,12 +1126,14 @@ export namespace Prisma {
 
   export type PreorderAvgAggregateOutputType = {
     id: number | null
+    order_by: number | null
     selected_package: number | null
     qty: number | null
   }
 
   export type PreorderSumAggregateOutputType = {
     id: number | null
+    order_by: number | null
     selected_package: number | null
     qty: number | null
   }
@@ -1108,7 +1141,7 @@ export namespace Prisma {
   export type PreorderMinAggregateOutputType = {
     id: number | null
     order_date: Date | null
-    order_by: string | null
+    order_by: number | null
     selected_package: number | null
     qty: number | null
     is_paid: boolean | null
@@ -1117,7 +1150,7 @@ export namespace Prisma {
   export type PreorderMaxAggregateOutputType = {
     id: number | null
     order_date: Date | null
-    order_by: string | null
+    order_by: number | null
     selected_package: number | null
     qty: number | null
     is_paid: boolean | null
@@ -1136,12 +1169,14 @@ export namespace Prisma {
 
   export type PreorderAvgAggregateInputType = {
     id?: true
+    order_by?: true
     selected_package?: true
     qty?: true
   }
 
   export type PreorderSumAggregateInputType = {
     id?: true
+    order_by?: true
     selected_package?: true
     qty?: true
   }
@@ -1263,7 +1298,7 @@ export namespace Prisma {
   export type PreorderGroupByOutputType = {
     id: number
     order_date: Date
-    order_by: string
+    order_by: number
     selected_package: number
     qty: number
     is_paid: boolean
@@ -1296,6 +1331,7 @@ export namespace Prisma {
     qty?: boolean
     is_paid?: boolean
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["preorder"]>
 
   export type preorderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1306,6 +1342,7 @@ export namespace Prisma {
     qty?: boolean
     is_paid?: boolean
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["preorder"]>
 
   export type preorderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1316,6 +1353,7 @@ export namespace Prisma {
     qty?: boolean
     is_paid?: boolean
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["preorder"]>
 
   export type preorderSelectScalar = {
@@ -1330,23 +1368,27 @@ export namespace Prisma {
   export type preorderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order_date" | "order_by" | "selected_package" | "qty" | "is_paid", ExtArgs["result"]["preorder"]>
   export type preorderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }
   export type preorderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }
   export type preorderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paket?: boolean | paketDefaultArgs<ExtArgs>
+    customer?: boolean | customerDefaultArgs<ExtArgs>
   }
 
   export type $preorderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "preorder"
     objects: {
       paket: Prisma.$paketPayload<ExtArgs>
+      customer: Prisma.$customerPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       order_date: Date
-      order_by: string
+      order_by: number
       selected_package: number
       qty: number
       is_paid: boolean
@@ -1745,6 +1787,7 @@ export namespace Prisma {
   export interface Prisma__preorderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     paket<T extends paketDefaultArgs<ExtArgs> = {}>(args?: Subset<T, paketDefaultArgs<ExtArgs>>): Prisma__paketClient<$Result.GetResult<Prisma.$paketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    customer<T extends customerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, customerDefaultArgs<ExtArgs>>): Prisma__customerClient<$Result.GetResult<Prisma.$customerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1776,7 +1819,7 @@ export namespace Prisma {
   interface preorderFieldRefs {
     readonly id: FieldRef<"preorder", 'Int'>
     readonly order_date: FieldRef<"preorder", 'DateTime'>
-    readonly order_by: FieldRef<"preorder", 'String'>
+    readonly order_by: FieldRef<"preorder", 'Int'>
     readonly selected_package: FieldRef<"preorder", 'Int'>
     readonly qty: FieldRef<"preorder", 'Int'>
     readonly is_paid: FieldRef<"preorder", 'Boolean'>
@@ -3479,6 +3522,8 @@ export namespace Prisma {
     nama?: boolean
     deskripsi?: boolean
     createAt?: boolean
+    preorders?: boolean | customer$preordersArgs<ExtArgs>
+    _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
   export type customerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3506,10 +3551,18 @@ export namespace Prisma {
   }
 
   export type customerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kode" | "nama" | "deskripsi" | "createAt", ExtArgs["result"]["customer"]>
+  export type customerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    preorders?: boolean | customer$preordersArgs<ExtArgs>
+    _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type customerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type customerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $customerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "customer"
-    objects: {}
+    objects: {
+      preorders: Prisma.$preorderPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       kode: string
@@ -3910,6 +3963,7 @@ export namespace Prisma {
    */
   export interface Prisma__customerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    preorders<T extends customer$preordersArgs<ExtArgs> = {}>(args?: Subset<T, customer$preordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preorderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3961,6 +4015,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * Filter, which customer to fetch.
      */
     where: customerWhereUniqueInput
@@ -3979,6 +4037,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * Filter, which customer to fetch.
      */
     where: customerWhereUniqueInput
@@ -3996,6 +4058,10 @@ export namespace Prisma {
      * Omit specific fields from the customer
      */
     omit?: customerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
     /**
      * Filter, which customer to fetch.
      */
@@ -4045,6 +4111,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * Filter, which customer to fetch.
      */
     where?: customerWhereInput
@@ -4093,6 +4163,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * Filter, which customers to fetch.
      */
     where?: customerWhereInput
@@ -4135,6 +4209,10 @@ export namespace Prisma {
      * Omit specific fields from the customer
      */
     omit?: customerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
     /**
      * The data needed to create a customer.
      */
@@ -4181,6 +4259,10 @@ export namespace Prisma {
      * Omit specific fields from the customer
      */
     omit?: customerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
     /**
      * The data needed to update a customer.
      */
@@ -4248,6 +4330,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * The filter to search for the customer to update in case it exists.
      */
     where: customerWhereUniqueInput
@@ -4274,6 +4360,10 @@ export namespace Prisma {
      */
     omit?: customerOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
+    /**
      * Filter which customer to delete.
      */
     where: customerWhereUniqueInput
@@ -4294,6 +4384,30 @@ export namespace Prisma {
   }
 
   /**
+   * customer.preorders
+   */
+  export type customer$preordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the preorder
+     */
+    select?: preorderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the preorder
+     */
+    omit?: preorderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preorderInclude<ExtArgs> | null
+    where?: preorderWhereInput
+    orderBy?: preorderOrderByWithRelationInput | preorderOrderByWithRelationInput[]
+    cursor?: preorderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreorderScalarFieldEnum | PreorderScalarFieldEnum[]
+  }
+
+  /**
    * customer without action
    */
   export type customerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4305,6 +4419,10 @@ export namespace Prisma {
      * Omit specific fields from the customer
      */
     omit?: customerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: customerInclude<ExtArgs> | null
   }
 
 
@@ -4380,16 +4498,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String'
+   * Reference to a field of type 'Boolean'
    */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'String'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
     
 
 
@@ -4409,11 +4527,12 @@ export namespace Prisma {
     NOT?: preorderWhereInput | preorderWhereInput[]
     id?: IntFilter<"preorder"> | number
     order_date?: DateTimeFilter<"preorder"> | Date | string
-    order_by?: StringFilter<"preorder"> | string
+    order_by?: IntFilter<"preorder"> | number
     selected_package?: IntFilter<"preorder"> | number
     qty?: IntFilter<"preorder"> | number
     is_paid?: BoolFilter<"preorder"> | boolean
     paket?: XOR<PaketScalarRelationFilter, paketWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, customerWhereInput>
   }
 
   export type preorderOrderByWithRelationInput = {
@@ -4424,6 +4543,7 @@ export namespace Prisma {
     qty?: SortOrder
     is_paid?: SortOrder
     paket?: paketOrderByWithRelationInput
+    customer?: customerOrderByWithRelationInput
   }
 
   export type preorderWhereUniqueInput = Prisma.AtLeast<{
@@ -4432,11 +4552,12 @@ export namespace Prisma {
     OR?: preorderWhereInput[]
     NOT?: preorderWhereInput | preorderWhereInput[]
     order_date?: DateTimeFilter<"preorder"> | Date | string
-    order_by?: StringFilter<"preorder"> | string
+    order_by?: IntFilter<"preorder"> | number
     selected_package?: IntFilter<"preorder"> | number
     qty?: IntFilter<"preorder"> | number
     is_paid?: BoolFilter<"preorder"> | boolean
     paket?: XOR<PaketScalarRelationFilter, paketWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, customerWhereInput>
   }, "id">
 
   export type preorderOrderByWithAggregationInput = {
@@ -4459,7 +4580,7 @@ export namespace Prisma {
     NOT?: preorderScalarWhereWithAggregatesInput | preorderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"preorder"> | number
     order_date?: DateTimeWithAggregatesFilter<"preorder"> | Date | string
-    order_by?: StringWithAggregatesFilter<"preorder"> | string
+    order_by?: IntWithAggregatesFilter<"preorder"> | number
     selected_package?: IntWithAggregatesFilter<"preorder"> | number
     qty?: IntWithAggregatesFilter<"preorder"> | number
     is_paid?: BoolWithAggregatesFilter<"preorder"> | boolean
@@ -4526,6 +4647,7 @@ export namespace Prisma {
     nama?: StringFilter<"customer"> | string
     deskripsi?: StringFilter<"customer"> | string
     createAt?: DateTimeFilter<"customer"> | Date | string
+    preorders?: PreorderListRelationFilter
   }
 
   export type customerOrderByWithRelationInput = {
@@ -4534,6 +4656,7 @@ export namespace Prisma {
     nama?: SortOrder
     deskripsi?: SortOrder
     createAt?: SortOrder
+    preorders?: preorderOrderByRelationAggregateInput
   }
 
   export type customerWhereUniqueInput = Prisma.AtLeast<{
@@ -4545,6 +4668,7 @@ export namespace Prisma {
     nama?: StringFilter<"customer"> | string
     deskripsi?: StringFilter<"customer"> | string
     createAt?: DateTimeFilter<"customer"> | Date | string
+    preorders?: PreorderListRelationFilter
   }, "id">
 
   export type customerOrderByWithAggregationInput = {
@@ -4573,16 +4697,16 @@ export namespace Prisma {
 
   export type preorderCreateInput = {
     order_date: Date | string
-    order_by: string
     qty: number
     is_paid: boolean
     paket: paketCreateNestedOneWithoutPreordersInput
+    customer: customerCreateNestedOneWithoutPreordersInput
   }
 
   export type preorderUncheckedCreateInput = {
     id?: number
     order_date: Date | string
-    order_by: string
+    order_by: number
     selected_package: number
     qty: number
     is_paid: boolean
@@ -4590,16 +4714,16 @@ export namespace Prisma {
 
   export type preorderUpdateInput = {
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     paket?: paketUpdateOneRequiredWithoutPreordersNestedInput
+    customer?: customerUpdateOneRequiredWithoutPreordersNestedInput
   }
 
   export type preorderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
+    order_by?: IntFieldUpdateOperationsInput | number
     selected_package?: IntFieldUpdateOperationsInput | number
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
@@ -4608,7 +4732,7 @@ export namespace Prisma {
   export type preorderCreateManyInput = {
     id?: number
     order_date: Date | string
-    order_by: string
+    order_by: number
     selected_package: number
     qty: number
     is_paid: boolean
@@ -4616,7 +4740,6 @@ export namespace Prisma {
 
   export type preorderUpdateManyMutationInput = {
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -4624,7 +4747,7 @@ export namespace Prisma {
   export type preorderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
+    order_by?: IntFieldUpdateOperationsInput | number
     selected_package?: IntFieldUpdateOperationsInput | number
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
@@ -4685,6 +4808,7 @@ export namespace Prisma {
     nama: string
     deskripsi: string
     createAt?: Date | string
+    preorders?: preorderCreateNestedManyWithoutCustomerInput
   }
 
   export type customerUncheckedCreateInput = {
@@ -4693,6 +4817,7 @@ export namespace Prisma {
     nama: string
     deskripsi: string
     createAt?: Date | string
+    preorders?: preorderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type customerUpdateInput = {
@@ -4700,6 +4825,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     deskripsi?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preorders?: preorderUpdateManyWithoutCustomerNestedInput
   }
 
   export type customerUncheckedUpdateInput = {
@@ -4708,6 +4834,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     deskripsi?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preorders?: preorderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type customerCreateManyInput = {
@@ -4755,20 +4882,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -4777,6 +4890,11 @@ export namespace Prisma {
   export type PaketScalarRelationFilter = {
     is?: paketWhereInput
     isNot?: paketWhereInput
+  }
+
+  export type CustomerScalarRelationFilter = {
+    is?: customerWhereInput
+    isNot?: customerWhereInput
   }
 
   export type preorderCountOrderByAggregateInput = {
@@ -4790,6 +4908,7 @@ export namespace Prisma {
 
   export type preorderAvgOrderByAggregateInput = {
     id?: SortOrder
+    order_by?: SortOrder
     selected_package?: SortOrder
     qty?: SortOrder
   }
@@ -4814,6 +4933,7 @@ export namespace Prisma {
 
   export type preorderSumOrderByAggregateInput = {
     id?: SortOrder
+    order_by?: SortOrder
     selected_package?: SortOrder
     qty?: SortOrder
   }
@@ -4848,7 +4968,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
     notIn?: string[]
@@ -4859,18 +4987,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type PreorderListRelationFilter = {
@@ -4912,6 +5029,23 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type customerCountOrderByAggregateInput = {
     id?: SortOrder
     kode?: SortOrder
@@ -4950,12 +5084,14 @@ export namespace Prisma {
     connect?: paketWhereUniqueInput
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type customerCreateNestedOneWithoutPreordersInput = {
+    create?: XOR<customerCreateWithoutPreordersInput, customerUncheckedCreateWithoutPreordersInput>
+    connectOrCreate?: customerCreateOrConnectWithoutPreordersInput
+    connect?: customerWhereUniqueInput
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4978,6 +5114,14 @@ export namespace Prisma {
     update?: XOR<XOR<paketUpdateToOneWithWhereWithoutPreordersInput, paketUpdateWithoutPreordersInput>, paketUncheckedUpdateWithoutPreordersInput>
   }
 
+  export type customerUpdateOneRequiredWithoutPreordersNestedInput = {
+    create?: XOR<customerCreateWithoutPreordersInput, customerUncheckedCreateWithoutPreordersInput>
+    connectOrCreate?: customerCreateOrConnectWithoutPreordersInput
+    upsert?: customerUpsertWithoutPreordersInput
+    connect?: customerWhereUniqueInput
+    update?: XOR<XOR<customerUpdateToOneWithWhereWithoutPreordersInput, customerUpdateWithoutPreordersInput>, customerUncheckedUpdateWithoutPreordersInput>
+  }
+
   export type preorderCreateNestedManyWithoutPaketInput = {
     create?: XOR<preorderCreateWithoutPaketInput, preorderUncheckedCreateWithoutPaketInput> | preorderCreateWithoutPaketInput[] | preorderUncheckedCreateWithoutPaketInput[]
     connectOrCreate?: preorderCreateOrConnectWithoutPaketInput | preorderCreateOrConnectWithoutPaketInput[]
@@ -4990,6 +5134,10 @@ export namespace Prisma {
     connectOrCreate?: preorderCreateOrConnectWithoutPaketInput | preorderCreateOrConnectWithoutPaketInput[]
     createMany?: preorderCreateManyPaketInputEnvelope
     connect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type preorderUpdateManyWithoutPaketNestedInput = {
@@ -5020,6 +5168,48 @@ export namespace Prisma {
     deleteMany?: preorderScalarWhereInput | preorderScalarWhereInput[]
   }
 
+  export type preorderCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput> | preorderCreateWithoutCustomerInput[] | preorderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: preorderCreateOrConnectWithoutCustomerInput | preorderCreateOrConnectWithoutCustomerInput[]
+    createMany?: preorderCreateManyCustomerInputEnvelope
+    connect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+  }
+
+  export type preorderUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput> | preorderCreateWithoutCustomerInput[] | preorderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: preorderCreateOrConnectWithoutCustomerInput | preorderCreateOrConnectWithoutCustomerInput[]
+    createMany?: preorderCreateManyCustomerInputEnvelope
+    connect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+  }
+
+  export type preorderUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput> | preorderCreateWithoutCustomerInput[] | preorderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: preorderCreateOrConnectWithoutCustomerInput | preorderCreateOrConnectWithoutCustomerInput[]
+    upsert?: preorderUpsertWithWhereUniqueWithoutCustomerInput | preorderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: preorderCreateManyCustomerInputEnvelope
+    set?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    disconnect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    delete?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    connect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    update?: preorderUpdateWithWhereUniqueWithoutCustomerInput | preorderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: preorderUpdateManyWithWhereWithoutCustomerInput | preorderUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: preorderScalarWhereInput | preorderScalarWhereInput[]
+  }
+
+  export type preorderUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput> | preorderCreateWithoutCustomerInput[] | preorderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: preorderCreateOrConnectWithoutCustomerInput | preorderCreateOrConnectWithoutCustomerInput[]
+    upsert?: preorderUpsertWithWhereUniqueWithoutCustomerInput | preorderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: preorderCreateManyCustomerInputEnvelope
+    set?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    disconnect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    delete?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    connect?: preorderWhereUniqueInput | preorderWhereUniqueInput[]
+    update?: preorderUpdateWithWhereUniqueWithoutCustomerInput | preorderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: preorderUpdateManyWithWhereWithoutCustomerInput | preorderUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: preorderScalarWhereInput | preorderScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -5040,20 +5230,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -5102,6 +5278,28 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -5117,14 +5315,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type paketCreateWithoutPreordersInput = {
@@ -5143,6 +5333,26 @@ export namespace Prisma {
   export type paketCreateOrConnectWithoutPreordersInput = {
     where: paketWhereUniqueInput
     create: XOR<paketCreateWithoutPreordersInput, paketUncheckedCreateWithoutPreordersInput>
+  }
+
+  export type customerCreateWithoutPreordersInput = {
+    kode: string
+    nama: string
+    deskripsi: string
+    createAt?: Date | string
+  }
+
+  export type customerUncheckedCreateWithoutPreordersInput = {
+    id?: number
+    kode: string
+    nama: string
+    deskripsi: string
+    createAt?: Date | string
+  }
+
+  export type customerCreateOrConnectWithoutPreordersInput = {
+    where: customerWhereUniqueInput
+    create: XOR<customerCreateWithoutPreordersInput, customerUncheckedCreateWithoutPreordersInput>
   }
 
   export type paketUpsertWithoutPreordersInput = {
@@ -5169,17 +5379,43 @@ export namespace Prisma {
     deskripsi?: StringFieldUpdateOperationsInput | string
   }
 
+  export type customerUpsertWithoutPreordersInput = {
+    update: XOR<customerUpdateWithoutPreordersInput, customerUncheckedUpdateWithoutPreordersInput>
+    create: XOR<customerCreateWithoutPreordersInput, customerUncheckedCreateWithoutPreordersInput>
+    where?: customerWhereInput
+  }
+
+  export type customerUpdateToOneWithWhereWithoutPreordersInput = {
+    where?: customerWhereInput
+    data: XOR<customerUpdateWithoutPreordersInput, customerUncheckedUpdateWithoutPreordersInput>
+  }
+
+  export type customerUpdateWithoutPreordersInput = {
+    kode?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type customerUncheckedUpdateWithoutPreordersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kode?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type preorderCreateWithoutPaketInput = {
     order_date: Date | string
-    order_by: string
     qty: number
     is_paid: boolean
+    customer: customerCreateNestedOneWithoutPreordersInput
   }
 
   export type preorderUncheckedCreateWithoutPaketInput = {
     id?: number
     order_date: Date | string
-    order_by: string
+    order_by: number
     qty: number
     is_paid: boolean
   }
@@ -5215,31 +5451,71 @@ export namespace Prisma {
     NOT?: preorderScalarWhereInput | preorderScalarWhereInput[]
     id?: IntFilter<"preorder"> | number
     order_date?: DateTimeFilter<"preorder"> | Date | string
-    order_by?: StringFilter<"preorder"> | string
+    order_by?: IntFilter<"preorder"> | number
     selected_package?: IntFilter<"preorder"> | number
     qty?: IntFilter<"preorder"> | number
     is_paid?: BoolFilter<"preorder"> | boolean
   }
 
+  export type preorderCreateWithoutCustomerInput = {
+    order_date: Date | string
+    qty: number
+    is_paid: boolean
+    paket: paketCreateNestedOneWithoutPreordersInput
+  }
+
+  export type preorderUncheckedCreateWithoutCustomerInput = {
+    id?: number
+    order_date: Date | string
+    selected_package: number
+    qty: number
+    is_paid: boolean
+  }
+
+  export type preorderCreateOrConnectWithoutCustomerInput = {
+    where: preorderWhereUniqueInput
+    create: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type preorderCreateManyCustomerInputEnvelope = {
+    data: preorderCreateManyCustomerInput | preorderCreateManyCustomerInput[]
+  }
+
+  export type preorderUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: preorderWhereUniqueInput
+    update: XOR<preorderUpdateWithoutCustomerInput, preorderUncheckedUpdateWithoutCustomerInput>
+    create: XOR<preorderCreateWithoutCustomerInput, preorderUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type preorderUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: preorderWhereUniqueInput
+    data: XOR<preorderUpdateWithoutCustomerInput, preorderUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type preorderUpdateManyWithWhereWithoutCustomerInput = {
+    where: preorderScalarWhereInput
+    data: XOR<preorderUpdateManyMutationInput, preorderUncheckedUpdateManyWithoutCustomerInput>
+  }
+
   export type preorderCreateManyPaketInput = {
     id?: number
     order_date: Date | string
-    order_by: string
+    order_by: number
     qty: number
     is_paid: boolean
   }
 
   export type preorderUpdateWithoutPaketInput = {
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
+    customer?: customerUpdateOneRequiredWithoutPreordersNestedInput
   }
 
   export type preorderUncheckedUpdateWithoutPaketInput = {
     id?: IntFieldUpdateOperationsInput | number
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
+    order_by?: IntFieldUpdateOperationsInput | number
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -5247,7 +5523,38 @@ export namespace Prisma {
   export type preorderUncheckedUpdateManyWithoutPaketInput = {
     id?: IntFieldUpdateOperationsInput | number
     order_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order_by?: StringFieldUpdateOperationsInput | string
+    order_by?: IntFieldUpdateOperationsInput | number
+    qty?: IntFieldUpdateOperationsInput | number
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type preorderCreateManyCustomerInput = {
+    id?: number
+    order_date: Date | string
+    selected_package: number
+    qty: number
+    is_paid: boolean
+  }
+
+  export type preorderUpdateWithoutCustomerInput = {
+    order_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    qty?: IntFieldUpdateOperationsInput | number
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    paket?: paketUpdateOneRequiredWithoutPreordersNestedInput
+  }
+
+  export type preorderUncheckedUpdateWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    order_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    selected_package?: IntFieldUpdateOperationsInput | number
+    qty?: IntFieldUpdateOperationsInput | number
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type preorderUncheckedUpdateManyWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    order_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    selected_package?: IntFieldUpdateOperationsInput | number
     qty?: IntFieldUpdateOperationsInput | number
     is_paid?: BoolFieldUpdateOperationsInput | boolean
   }
